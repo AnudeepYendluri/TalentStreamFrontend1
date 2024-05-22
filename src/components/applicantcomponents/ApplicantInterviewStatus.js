@@ -19,39 +19,6 @@ const ApplicantInterviewStatus = ({ selectedJobId, setSelectedJobId }) => {
   const jobId = new URLSearchParams(location.search).get('jobId');
   const navigate = useNavigate();
 
-  // const handleGoBack = () => {
-  //   // Navigate back to the previous page
-  //   navigate(-1);
-  // };
-
-  // useEffect(() => {
-  //   // Scroll to the stored position when the component mounts
-  //   const { state } = location;
-  //   if (state && state.scrollPosition) {
-  //     window.scrollTo(0, state.scrollPosition);
-  //   }
-  // }, [location]);
-
-    const handleGoBack = () => {
-    // Navigate back to the previous page with the stored scroll position
-    const { state } = location;
-    if (state && state.scrollPosition) {
-      navigate(-1, { state: { scrollPosition: state.scrollPosition } });
-    } else {
-      navigate(-1);
-    }
-  };
-
-  useEffect(() => {
-    // Scroll to the stored position when the component mounts
-    const { state } = location;
-    if (state && state.scrollPosition) {
-      window.scrollTo(0, state.scrollPosition);
-    }
-  }, [location]);
-
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -69,7 +36,6 @@ const ApplicantInterviewStatus = ({ selectedJobId, setSelectedJobId }) => {
     const fetchJobDetails = async () => {
       try {
         const authToken = localStorage.getItem('jwtToken'); 
-
         const response = await axios.get(
           `${apiUrl}/viewjob/applicant/viewjob/${jobId}`,
           {
@@ -97,8 +63,7 @@ const ApplicantInterviewStatus = ({ selectedJobId, setSelectedJobId }) => {
   useEffect(() => {
     const fetchJobStatus = async () => {
       try {
-        const authToken = localStorage.getItem('jwtToken'); 
-
+        const authToken = localStorage.getItem('jwtToken');
         const response = await axios.get(
           `${apiUrl}/applyjob/recruiters/applyjob-status-history/${selectedJobId}`,
           {
@@ -133,12 +98,25 @@ const ApplicantInterviewStatus = ({ selectedJobId, setSelectedJobId }) => {
     return (amountInRupees / 100000).toFixed(2); 
   };
 
+  useEffect(() => {
+    // Extract query parameters from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const scrollX = parseInt(urlParams.get('scrollX')) || 0; // Default to 0 if parameter not provided
+    const scrollY = parseInt(urlParams.get('scrollY')) || 0;
+
+    // Scroll back to specified position
+    window.scrollTo(scrollX, scrollY);
+}, []); 
+
+const handleBackButtonClick = () => {
+  navigate(`/applicant-applied-jobs?scrollX=0&scrollY=700`); 
+};
   return (
 <div>
       {loading ? null : (
 <div className="dashboard__content">
 <section className="page-title-dashboard">
-<button onClick={handleGoBack}>Go Back</button>
+<button onClick={handleBackButtonClick}>Back to Applied Jobs</button>
 <div className="themes-container">
 <div className="row">
 <div className="col-lg-12 col-md-12 ">

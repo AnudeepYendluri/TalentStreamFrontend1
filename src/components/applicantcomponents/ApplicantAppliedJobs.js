@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom';
 import { apiUrl } from '../../services/ApplicantAPIService';  
 import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
+
 function ApplicantAppliedJobs({setSelectedJobId}) {
     const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
   const applicantId = user.id;
+  const scrollX = 0; // Horizontal position (left)
+const scrollY = 500; // Vertical position
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,6 +25,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
     };
     fetchData();
   }, []);
+
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
@@ -41,14 +46,17 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
   
     fetchAppliedJobs();
   }, []);
+
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     return formattedDate;
   }
+
   const convertToLakhs = (amountInRupees) => {
     return (amountInRupees / 100000).toFixed(2); 
   };
+
   return (
     <div>
     {loading ? null : (
@@ -125,11 +133,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                               <button class="button-status">
   {job && (
     <Link
-      to={{
-        pathname: '/applicant-interview-status',
-        search: `?jobId=${job.id}`,
-        state: { scrollPosition: window.scrollY } // Store scroll position
-      }}
+      to={`/applicant-interview-status?jobId=${job.id}&scrollX&scrollY`} 
       style={{ color: 'white' }}
       onClick={() => setSelectedJobId(job.applyJobId)}
     >
@@ -138,12 +142,8 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
   )}
 </button>
 
-
-
-
-
                             </div>
-                          </div>
+                          </div>  
                       </div>
                     )))}
                   </div>

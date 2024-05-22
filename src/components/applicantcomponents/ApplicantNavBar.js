@@ -175,6 +175,7 @@ useEffect(() => {
   };
   fetchAlertCount();
 }, [user.id]);
+
   return (
     <div>
   <div className="menu-mobile-popup">
@@ -213,6 +214,29 @@ useEffect(() => {
             </div>
             <div className="header-ct-center"></div>
             <div className="header-ct-right">
+              <div>
+              <Link to="/applicant-job-alerts" className={location.pathname === "/applicant-job-alerts" ? "tf-effect active" : ""} onClick={fetchAlertCount}>
+        <div style={{ position: 'relative', display: 'inline-block' , marginTop : '10px' }}>
+          <span className="icon-bell1 dash-icon">
+            <sup
+              style={{
+                background: 'red',
+                borderRadius: '50%',
+                padding: '2px 5px',
+                color: 'white',
+                fontSize: '10px',
+                textAlign: 'center',
+                lineHeight: '1',
+                marginLeft: '-10px',
+              }}
+            >
+              {alertCount}
+            </sup>
+          </span>
+        </div>
+      </Link>
+            </div>
+
                
               <div className="header-customize-item account">
                

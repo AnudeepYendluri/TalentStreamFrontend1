@@ -78,7 +78,7 @@ export default function ApplicantJobAlerts({ setSelectedJobId }) {
                     {jobAlerts.map(job => (
                      <li key={job.alertsId} onClick={() => handleJobAlertClick(job)} className='inner bg-white' style={{ width: '100%', padding: '2%', borderRadius: '10px', position: 'relative', backgroundColor: job.seen ? '#F0F0F0' : '#FFFFFF' }}>
                      <div style={{ position: 'relative' }}>
-                       {!job.seen && <div style={{ width: '10px', height: '10px', backgroundColor: 'red', borderRadius: '50%', position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '-15px' }}></div>} {/* Inline CSS for the red dot */}
+                       {!job.seen && <div style={{ width: '10px', height: '10px', backgroundColor: 'red', borderRadius: '50%', position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '-15px' }}></div>}  
                        <h4>
   {job.status === "New" ? (
     `Your application is successfully submitted to ${job.companyName} for ${job.jobTitle} on ${formatDate(job.changeDate)}.`

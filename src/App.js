@@ -21,6 +21,7 @@ import CookiePolicy from './components/common/CookiePolicy';
 import TermsOfServices from './components/common/TermsOfServices';
 import Recruiterviewapplicant from './components/recruitercomponents/Recruiterviewapplicant';
 import AppliedApplicantsBasedOnJobs from './components/recruitercomponents/AppliedApplicantsBasedOnJobs';
+import ScrollRestoration from './components/applicantcomponents/ScrollRestoration';
 
 
 
@@ -50,6 +51,7 @@ function App() {
           <p>Loading...</p>
         ) : (
           <Router>
+            <ScrollRestoration />
             <Routes>
               <Route path="/" element={<IndexPage />} />
               <Route path="/find-jobs" element={<IndexPage />} />
